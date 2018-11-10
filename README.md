@@ -1,4 +1,4 @@
-# lightroom-sdk-8-examples
+# Adobe Photoshop Lightroom SDK 8.0 - Official Samples
 
 All content of this repository is copied from [Adobe sources](https://console.adobe.io/downloads/lr) and not created or owned by me.
 

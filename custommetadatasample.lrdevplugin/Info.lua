@@ -18,8 +18,8 @@ of it requires the prior written permission of Adobe.
 
 return {
 
-	LrSdkVersion = 6.0,
-
+	LrSdkVersion = 3.0,
+	LrSdkMinimumVersion = 2.0,
 	LrToolkitIdentifier = 'com.adobe.lightroom.sdk.metadata.custommetadatasample',
 
 	LrPluginName = LOC "$$$/CustomMetadata/PluginName=Custom Metadata Sample",

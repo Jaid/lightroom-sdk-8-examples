@@ -1,0 +1,82 @@
+<%
+--[[
+
+header.html
+This file begins the html file.
+By separating the pages, the header can be used with more than one html page
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Adobe Photoshop Lightroom" >
+<title>$model.metadata.siteTitle.value</title>
+<link rel="stylesheet" type="text/css" media="screen" title="Custom Settings" href="$others/custom.css" >
+<link href="$theRoot/resources/css/stylesheet.css" media="screen" title="Custom Settings" rel="stylesheet" type="text/css" />
+
+<% --[[ Scripting support for rollovers and (when previewed in Lightroom) live Update, photobin syncing ]] %>
+
+<script type="text/javascript">
+<!--
+
+	window.AgMode = "$mode";
+	<% if mode == 'preview' then %>
+	window.AgOnLoad = function() {
+		tellLightroomWhatImagesWeAreUsing();
+		setActiveImageSize( "<%= mySize %>" );
+		<% if image then %>
+			callCallback( "showInPhotoBin", "$image.imageID" );
+		<% end %>
+	}
+	<% end %>
+	
+	function updateImage(img){
+		if(img != null){
+			var t = document.getElementById("targetimage");
+			var tt = document.getElementById("targettitle");
+			var tc = document.getElementById("targetcaption");
+			t.src = img.getAttribute("imgsrc");
+			tt.value = img.getAttribute("imagetitle");
+			tc.value = img.getAttribute("imagedescription");
+			t.width = img.getAttribute("imagewidth");
+			t.height = img.getAttribute("imageheight");
+		}
+	}
+-->
+</script>
+<script type="text/javascript" src="$theRoot/resources/js/live_update.js"></script>
+
+</head>
+<body>
+	<%
+	local function fixUrlIfRelative( url )
+  		url = tostring( url ) or ""
+  		if string.find( url, "[a-z]+:" ) then
+    		-- this url starts with something like http: or mailto:, so leave it alone
+  		else
+    		-- this url is probably relative, so we need to tack on theRoot to the beginning
+    		-- of it, so no matter where the page were currently viewing is placed in the
+    		-- output hierarchy, this link will still point to the same page
+    		url = theRoot .. "/" .. url;
+  		end
+  		return url
+	end
+ 	%>
+        <div class="header">
+            <h1 onclick="clickTarget( this, 'metadata.siteTitle.value' );" id="metadata.siteTitle.value" class="textColor sitetitle">$model.metadata.siteTitle.value</h1>
+            <h2 onclick="clickTarget( this, 'metadata.collectionTitle.value' );" id="metadata.collectionTitle.value" class="textColor collectionHeader">$model.metadata.collectionTitle.value</h2>
+            <p onclick="clickTarget( this, 'metadata.collectionDescription.value' );" id="metadata.collectionDescription.value" class="textColor">$model.metadata.collectionDescription.value</P>
+        </div>

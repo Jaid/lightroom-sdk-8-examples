@@ -1,0 +1,70 @@
+--[[
+
+galleryInfo.lrweb
+This file specifies the development environment within Lightroom.
+For this sample we have defined sizes for large and thumbnail images which will be used in the large.html
+and grid.html pages when displaying the selected photos.
+
+The views table creates the panel entries available within the Lightroom UI.  For this sample the
+user can dynamically edit the site title of the website before it is published.
+
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+
+
+return {
+	LrSdkVersion = 2.0,
+	LrSdkMinimumVersion = 2.0, -- minimum SDK version required by this plugin
+
+	title = "My Sample Plug-in",
+	id = "com.adobe.wpg.templates.mysample", -- unique id for this plug-in
+	galleryType = "lua", -- lua or flash
+	
+	model = {
+		
+		["metadata.siteTitle.value"] = "MySample", -- default value for the siteTitle variable
+		["appearance.sitetitle.cssID"] = "#sitetitle",
+
+		["nonCSS.tracking"] = false,
+
+		["photoSizes.large.width"] = 450, -- width of the large image as used in large.html
+		["photoSizes.large.height"] = 450, -- height of the large image as used in large.html
+		
+		["photoSizes.thumb.height"] = 150, -- height of the thumbnail image used in grid.html
+		["photoSizes.thumb.width"] = 150, -- width of the thumbnail image used in grid.html
+		["photoSizes.thumb.metadataExportMode"] = "copyright", -- add copyright to images when published
+		["appearance.thumb.cssID"] = ".thumb", -- CSS Id.  In grid.html the images with id 'thumb' will be set with the thumb.height and thumb.width defined above.
+		
+		["nonCSS.imageBase"] = "content",	-- when translated to html, the images will be in a root folder 'content'
+		
+	},
+	
+	views = function( controller, f )
+		local LrView = import "LrView"
+		local bind = LrView.bind
+		local multibind = f.multibind
+		return {
+			-- this panel will appear in the Lightroom UI to enable a user to dynamically change the site title from the application without modifying any of this code.
+			labels = f:panel_content {
+				bindToObject = controller,
+				f:subdivided_sections {
+					f:labeled_text_input  {
+						title = "MySample",
+						value = bind "metadata.siteTitle.value",
+					},
+				},
+			},
+		}
+	end,
+	
+}

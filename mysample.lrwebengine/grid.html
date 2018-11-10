@@ -1,0 +1,68 @@
+<%
+--[[
+
+grid.html
+This file displays a thumbnail grid of the images with dimensions specified in the galleryInfo.lrweb file.
+The Pagination tagsets have been used to assist with navigation through the photos.
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+<%
+--[[ Define some variables to make locating other resources easier.]]
+     
+     local mySize = "thumb"
+     local others = "content"
+     local theRoot = "."
+     
+%>
+
+<% --[[ Include the page header]] %>
+<%@ include file="header.html" %>
+
+<lr:ThumbnailGrid>
+	<lr:GridPhotoCell>
+            <a href="$others/<%= image.exportFilename %>_large.html">
+                <img src="$others/bin/images/thumb/<%= image.exportFilename %>.jpg" id="<%= image.imageID %>" class="thumb" />
+            </a>
+    </lr:GridPhotoCell>
+</lr:ThumbnailGrid>
+
+<% if numGridPages > 1 then %>
+  <div class="pagination">
+    <ul>
+      <lr:Pagination>
+        <lr:CurrentPage>
+          <li>$page</li>
+        </lr:CurrentPage>
+        <lr:OtherPages>
+          <li><a href="$link">$page</a></li>
+        </lr:OtherPages>
+	<lr:PreviousEnabled>
+	  <li><a href="$link">Previous</a></li>
+	</lr:PreviousEnabled>
+	<lr:PreviousDisabled>
+	  <li>Previous</li>
+	</lr:PreviousDisabled>
+	<lr:NextEnabled>
+	  <li><a href="$link">Next</a></li>
+	</lr:NextEnabled>
+	<lr:NextDisabled>
+	  <li>Next</li>
+	</lr:NextDisabled>
+      </lr:Pagination>
+    </ul>
+  </div>
+<% end %>
+
+<% --[[ Include the page footer]] %>
+<%@ include file="footer.html" %>

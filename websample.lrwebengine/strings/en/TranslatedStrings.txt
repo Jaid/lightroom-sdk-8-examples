@@ -1,0 +1,47 @@
+﻿"$$$/AgWPG/Templates/HTML/Title=A Basic Web SDK Plug-in"
+"$$$/AgWPG/Templates/HTML/Description=This HTML-driven web photo gallery is provided by Adobe with Lightroom 2.0."
+"$$$/AgWPG/Templates/HTML/IdentityPlate/Link=Web or Mail Link"
+"$$$/AgWPG/Templates/HTML/link=Web or Mail Link"
+
+"$$$/AgWPG/Templates/HTML/DefaultValues/properties/SiteTitle=Site Title"
+"$$$/AgWPG/Templates/HTML/DefaultValues/properties/ContactInfo=Contact Name"
+"$$$/AgWPG/Templates/HTML/Defaults/ContactLink=mailto:user@domain"
+
+-- [[ Main section with large image]]
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Main=Main Section"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/BackgroundColors=Background"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/SiteTitle=Site Title"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/GroupTitle=Collection Title"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/IdentityPlate=Identity Plate"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/CollectionDescription=Collection Description"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/ContactInfo=Contact Info"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/TextColor=Text"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Images=Images"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/MaximumImageSizeLabel/LargePreview=Size"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/ImageSizeUnit=px"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/LabelBackground=Label Background"
+
+--[[Left Panel with Thumbnails]]
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/ThumbnailViewer=Thumbnail Viewer"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarArrowColor=ScrollArrow"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarColor=ScrollBar"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarFace=ScrollBar Face"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarHighlight=ScrollBar Highlight"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ThumbBackground=Background"
+
+--[[ Footer Panel]]
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Footer=Footer"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/FooterBorder=Border"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/FooterBackground=Background"
+
+--[[ Header Panel]]
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Header=Header"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/HeaderBorder=Header Border"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/HeaderBackground=Header Background"
+
+"$$$/AgWPG/Templates/HTML/Panel/Checkbox/ShowImageBorder=Photo Borders"
+"$$$/AgWPG/Templates/HTML/Panel/Checkbox/UseWatermark=Add Copyright Watermark"
+"$$$/AgWPG/Templates/HTML/Panel/Labels/MaximumImageSizeLabel/JPEGQualityLabel=Quality"
+
+
+

@@ -1,0 +1,52 @@
+<%
+--[[
+
+footer.html
+This file adds closure to the html file.
+By separating the pages the footer can be used with other html pages
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+		<div class="clear">
+		</div>
+        <div class="footer">
+        	<% --[[ Contact Info ]] %>
+			<% if mode ~= 'preview' then
+      			local url = fixUrlIfRelative( model.metadata.contactInfo.link ) %>
+      			<a href="<%= url %>"> <span
+    		<% else %>
+      			<span onclick="clickTarget( this, 'metadata.contactInfo.value' );" style="text-decoration: underline;"
+    		<% end %>
+    		class="textColor" id="metadata.contactInfo.value"><%= model.metadata.contactInfo.value %></span>
+    		<% if mode ~= 'preview' then %>
+      			</a>
+    		<% end %>
+        	<%
+        	--[[ Include the identity plate during preview to enable quick live update ]]
+            local includeIdentityPlate = mode == 'preview' or model.appearance.logo.display
+            if includeIdentityPlate then
+              local url = fixUrlIfRelative( model.metadata.homePage.value )
+            %>
+            <div id="model.nonCSS.idplateEnabled">
+                <div class="logo">
+                    <a href="$url">
+                    	<img width="<%= getIdentityPlateSize().width %>" height="<%= getIdentityPlateSize().height %>" class="pngDelayDisplay" src="$others/logo.png" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            <%
+                end --[[ End conditionalize identity plate ]]
+            %>
+        </div>
+	</body>
+</html>

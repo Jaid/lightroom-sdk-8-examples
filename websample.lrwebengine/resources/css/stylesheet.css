@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+body, h1, h2, h3, h4, h5, h6, p, a {
+	background-color:inherit;
+	color: #b3b3b3;
+	font-size: 12px;
+	font-family: helvetica, arial, tahoma, verdana, sans-serif;
+	color: #b3b3b3;
+}
+/* LINKS */
+a, a:link, a:hover {
+	text-decoration:underline;
+	color:inherit;
+	cursor:pointer;
+}
+a:link a:visited a:hover, a:active {
+	color:inherit;
+	text-decoration:none;
+}
+img {
+	border: 0;
+}
+/* end of links */
+/* Page structure */
+	/* Header Section */
+		.header {
+			position : relative;
+			width : 100%;
+			height : 100px;
+			border-bottom : 2px solid #cccccc;
+			background-color:inherit;
+		}
+		/* SITE TITLE */
+		.sitetitle {
+			font-size:20px;
+		}
+		/* end of Site Title */
+		/* COLLECTION HEADER */
+		.collectionHeader {
+			font-size: 14px;
+			float:right;
+			
+		}
+		/* end of collection header */
+	/* end of header section */
+	/* Left panel */
+		.leftpanel {
+			height : 600px;
+			width : 170px;
+			padding : 5px;
+			margin-top:10px;
+			overflow:auto;
+			position:relative;
+			float:left;
+		}
+	/* end of left panel */
+	.footer {
+		position: fixed;
+		width: 100%;
+		height: 75px;
+		border-top : 2px solid #cccccc;
+		overflow:hidden;
+		text-align:right;
+		font-weight:bold;
+		padding-top:20px;
+		padding-right:20px;
+	}
+	#image_viewer {
+		top : 20%;
+		bottom : 100px;
+		margin : 0px 0px 0px 185px;
+		width : auto;
+		height : auto;
+		padding-left : 5px;
+		padding-right : 12px;
+		overflow : auto;
+		float:right;
+		position:absolute;
+	}
+/* end of page structure */
+.clear {
+	clear: both;
+}
+.thumbnail {
+	color:inherit;
+	width: 140px;
+	height: 140px;
+	position:relative;
+	padding:10px;
+	overflow:hidden;
+}
+.thumb {
+	border: 1px solid black;
+	position: relative;
+}
+.selectedThumbnail, .thumbnail:hover {
+	color:inherit;
+}
+/* LINKS */
+a, a:link, a:hover {
+	text-decoration:underline;
+	color:inherit;
+	cursor:pointer;
+}
+a:link a:visited a:hover, a:active {
+	color:inherit;
+	text-decoration:none;
+}
+/* ID PLATE */
+#idplate {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+#idplate .logo {
+}
+.metalabel{
+	border:0px;
+	font-weight:bold;
+}
+/* end of ID Plate */

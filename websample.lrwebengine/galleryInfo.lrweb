@@ -1,0 +1,359 @@
+--[[
+
+galleryInfo.lrweb
+This file specifies the development environment within Lightroom.
+
+The views table creates the panel entries available within the Lightroom UI.
+
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+
+local useMultiBind = false
+return {
+	LrSdkVersion = 2.0,
+	LrSdkMinimumVersion = 2.0, -- minimum SDK version required by this plugin
+
+	title = "A Web Sample",
+	id = "com.adobe.lightroom.wpg.templates.sdk.luawebsample", -- unique plug-in id
+	galleryType = "lua", -- lua
+	maximumGallerySize = 50000,
+	model = {
+		
+		-- The following metadata are located in the header of the sample and can be edited by the user using the Site Info panel.
+		["metadata.siteTitle.value"] = LOC "$$$/AgWPG/Templates/HTML/DefaultValues/properties/SiteTitle=Site Title",
+		["metadata.collectionTitle.value"] = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/CollectionTitle=My Photographs",
+		["metadata.collectionDescription.value"] = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/CollectionDescription=Web Photo Gallery created by Adobe Lightroom.",
+		
+		-- Contact details that are currently displayed in the footer section of the sample.  The 'link' is the valid email address and 'value' the text representation of the link
+		["metadata.contactInfo.link"] = {
+			value = LOC "$$$/AgWPG/Templates/HTML/Defaults/ContactLink=mailto:user@domain",
+			metadata = { [ "ag:dataType" ] = "webLink" },
+		},
+		["metadata.contactInfo.value"] = LOC "$$$/AgWPG/Templates/HTML/DefaultValues/properties/ContactInfo=Contact Name",
+		
+		-- The name of the homepage file when published
+		["metadata.homePage.value"] = {
+			value = "index.html",
+			metadata = { [ "ag:dataType" ] = "webLink" },
+		},
+		-- the large properties are used to display the main image in the centre panel of the page
+        ["photoSizes.large.height"] = useMultiBind and 450
+        	or function() return photoSizes.large.width end,
+        ["photoSizes.large.maxHeight"] = 2701,
+        ["photoSizes.large.maxWidth"] = 2701,
+        ["photoSizes.large.metadataExportMode"] = useMultiBind and "copyright"
+        	or function() return photoSizes.thumb.metadataExportMode end,
+        ["photoSizes.large.width"] = 550,
+		-- the thumb properties are responsible for displaying the thumbnails in the left-hand panel of the page.
+		["photoSizes.thumb.height"] = 130,
+		["photoSizes.thumb.metadataExportMode"] = "copyright",
+		["photoSizes.thumb.width"] = 130,
+		["photoSizes.tracking"] = false,
+		["nonCSS.tracking"] = false,
+
+		["lightroomApplication.identityPlateExport"] = "(main)", -- optional entry displaying identity plate
+		["lightroomApplication.jpegQuality"] = 70, -- quality of images when published
+		["lightroomApplication.sizeBeingViewed"] = "thumb",
+		["lightroomApplication.useWatermark"] = true,
+		["lightroomApplication.watermarkID"] = "",
+
+		["nonCSS.imageBase"] = "content",
+		["nonCSS.identityPlateAbsolutePath"] = "",
+		["nonCSS.numCols"] = 1, -- as we are using a scrollbar panel, 1 column is sufficient.
+		["nonCSS.numRows"] = 50,
+
+		["appearance.textColor.color"] = "#A1A1A1",
+		["appearance.textColor.cssID"] = ".textColor",
+				
+		["appearance.siteTitle.cssID"] = "#liveUpdateSiteTitle",
+		["appearance.sitetitle.cssID"] = "#sitetitle",
+		["appearance.logo.cssID"] = ".logo",
+		["appearance.logo.display"] = false,
+		["appearance.body.background-color"] = "#4C4C4C",
+		["appearance.body.cssID"] = "body",
+		
+		-- this will sort out the updating of the labels that display the metadata
+		["appearance.metalabel.color"] = function() return appearance.textColor.color end,
+		["appearance.metalabel.background-color"] = "#4C4C4C",
+		["appearance.metalabel.cssID"] = ".metalabel",
+		
+		--[[ Adding the functionality to change the scroll bar colours ]]
+		["appearance.body.scrollbar-base-color"] = "#4C4C4C",
+		["appearance.body.scrollbar-arrow-color"] = "#A1A1A1",
+		["appearance.body.scrollbar-highlight-color"] = "#4C4C4C",
+		["appearance.body.scrollbar-face-color"] = "#A1A1A1",
+		
+		--[[thumbnail panel background]]
+		["appearance.leftpanel.background-color"] = "#4C4C4C",
+		["appearance.leftpanel.cssID"] = ".leftpanel",
+		
+		--[[ Header Area ]]
+		["appearance.header.border-color"] = "#A1A1A1",
+		["appearance.header.background-color"] = "#4C4C4C",
+		["appearance.header.cssID"] = ".header",
+		
+		--[[ Footer Area]]
+		["appearance.footer.border-color"] = "#A1A1A1",
+		["appearance.footer.background-color"] = "#4C4C4C",
+		["appearance.footer.cssID"] = ".footer",
+		
+		["perImageSetting.description"] = {
+			enabled = true,
+			value = "{{com.adobe.caption}}",
+		},
+		["perImageSetting.title"] = {
+			enabled = true,
+			value = "{{com.adobe.title}}",
+		},
+		
+	},
+	properties = {
+		perImage = {
+			{
+				id = "title",
+				title = LOC "$$$/WPG/HTML/CSS/properties/ImageTitle=Title",
+			},
+			{
+				id = "description",
+				title = LOC "$$$/WPG/HTML/CSS/properties/ImageCaption=Caption",
+			},
+		},
+	},
+	views = function( controller, f )
+		local LrView = import "LrView"
+		local bind = LrView.bind
+		local multibind = f.multibind
+		
+		return {
+			labels = f:panel_content {
+				bindToObject = controller,
+				f:subdivided_sections {
+					-- Site Info panel for user to change site title, collection and description entries.
+					f:labeled_text_input  {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/SiteTitle=Site Title",
+						value = bind "metadata.siteTitle.value",
+					},
+					f:labeled_text_input  {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/CollectionTitle=Collection Title",
+						value = bind "metadata.groupTitle.value",
+					},
+					f:labeled_text_input {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/CollectionDescription=Collection Description",
+						value = bind "metadata.collectionDescription.value",
+					},
+				},
+				f:subdivided_sections {
+					-- update the contact details displayed in the footer of the page
+					f:labeled_text_input  {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/ContactInfo=Contact Info",
+						value = bind "metadata.contactInfo.value",
+					},
+					f:labeled_text_input  {
+						title = LOC "$$$/AgWPG/Templates/HTML/link=Web or Mail Link",
+						value = bind "metadata.contactInfo.link",
+						wraps = false,
+					},
+				},
+				f:subdivided_sections {
+					f:header_section {
+						f:checkbox_row {
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/IdentityPlate=Identity Plate",
+							value = bind "appearance.logo.display",
+						},
+					},
+					f:identity_plate {
+						value = bind "lightroomApplication.identityPlateExport",
+						enabled = bind "appearance.logo.display",
+					},
+					f:labeled_text_input {
+						title = LOC "$$$/AgWPG/Templates/HTML/IdentityPlate/Link=Web or Mail Link",
+						value = bind "metadata.homePage.value",
+						wraps = false,
+					},
+				},
+			},
+			colorPalette = f:panel_content {
+				bindToObject = controller,
+				f:subdivided_sections{
+					-- colour adjustments of the header panel
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Header=Header",
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.header.border-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/HeaderBorder=Header Border",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.header.background-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/HeaderBackground=Header Background",
+						},
+					},
+				},
+				f:subdivided_sections {
+					-- colour adjustments of the centre panel
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Main=Main Section",
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.textColor.color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/TextColor=Text",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.body.background-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/BackgroundColors=Background",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.metalabel.background-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/LabelBackground=Label Background",
+						},
+					},
+				},
+				f:subdivided_sections{
+					-- colour adjustments of the footer panel
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Footer=Footer",
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.footer.border-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/FooterBorder=Footer Border",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.footer.background-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/FooterBackground=Footer Background",
+						},
+					},
+				},
+				f:subdivided_sections{
+					-- colour adjustments of the thumbnail panel including the scrollbars.  feature not available on the Mac.
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/ThumbnailViewer=Thumbnail Panel",
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.body.scrollbar-base-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarColor=ScrollBar Base",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.body.scrollbar-arrow-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarArrowColor=ScrollBar Arrow",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.body.scrollbar-highlight-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarHighlight=ScrollBar Highlight",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.body.scrollbar-face-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ScrollBarFace=ScrollBar Face",
+						},
+					},
+					f:color_content_column {
+						f:label_and_color_row {
+							color = bind "appearance.leftpanel.background-color",
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Colors/ThumbBackground=Background",
+						},
+					},
+				},
+			},
+			appearanceConfiguration = f:panel_content {
+				bindToObject = controller,
+				f:subdivided_sections {
+					-- adjust large image sizes
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/Appearance/Images=Images",
+					},
+					f:slider_content_column {
+						f:slider_row {
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/MaximumImageSizeLabel/LargePreview=Size",
+							value = useMultiBind and multibind {
+								"photoSizes.large.width",
+								"photoSizes.large.height",
+								"appearance.liveUpdateImageSize.maxSize",
+							}
+							or bind "photoSizes.large.width",
+							tracking = bind "nonCSS.tracking",
+							unit = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/ImageSizeUnit=px",
+							max = 2071,
+							min = 300,
+							width_in_digits = 4,
+							precision = 0,
+						},
+					},
+				},
+			},
+			outputSettings = f:panel_content {
+				bindToObject = controller,
+				f:subdivided_sections {
+					f:slider_content_column {
+						f:metadataModeControl {
+							value = useMultiBind and multibind {
+								"photoSizes.thumb.metadataExportMode",
+								"photoSizes.large.metadataExportMode",
+							}
+							or bind "photoSizes.thumb.metadataExportMode",
+						},
+					},
+				},
+				f:subdivided_sections {
+					f:header_section_label {
+						title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/ImageHandling=Large Images",
+					},
+					f:slider_content_column {
+						f:slider_row {
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Labels/MaximumImageSizeLabel/JPEGQualityLabel=Quality",
+							value = bind "lightroomApplication.jpegQuality",
+							tracking = bind "lightroomApplication.jpegQuality.tracking",
+							tracking_value = "qualityTracking",
+							unit = "",
+							max = 100,
+							min = 0,
+							width_in_digits = 4,
+							precision = 0,
+						},
+						f:metadataModeControl {
+							value = useMultiBind and multibind {
+								"photoSizes.thumb.metadataExportMode",
+								"photoSizes.large.metadataExportMode",
+							}
+							or bind "photoSizes.thumb.metadataExportMode",
+						},
+					},
+					f:slider_content_column {
+						f:checkbox_row {
+							title = LOC "$$$/AgWPG/Templates/HTML/Panel/Checkbox/UseWatermark=Add Copyright Watermark",
+							value = bind "lightroomApplication.useWatermark",
+							indent_with_sliders = true,
+						},
+					},
+					f:watermark_section( controller ),
+				},
+			},
+		}
+	end,
+}

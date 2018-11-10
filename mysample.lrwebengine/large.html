@@ -1,0 +1,62 @@
+<%
+--[[
+
+large.html
+This file displays the larger image with dimensions specified in the galleryInfo.lrweb file
+The Pagination tagsets have been used to assist with navigation through the photos with
+a mechanism Index enabling the user to return to the thumbnail view.
+
+The lower section demonstrates the use of the custom tagsets defined in myExampleTags.lrweb
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+<%
+--[[ Define some variables to make locating other resources easier.]]
+
+    local image = getImage( index )
+    local theRoot = ".."
+    local others = "."
+    local mySize = "large"
+%>
+
+<% --[[ Include the page header]] %>
+<%@ include file="header.html" %>
+<div>
+    <ul>
+      <lr:Pagination>
+        <lr:PreviousEnabled>
+          <li><a href="$link">Previous</a></li>
+        </lr:PreviousEnabled>
+        <lr:PreviousDisabled>
+          <li>Previous</li>
+        </lr:PreviousDisabled>
+        <li><a href="$gridPageLink">Index</a></li>
+        <lr:NextEnabled>
+          <li><a href="$link">Next</a></li>
+        </lr:NextEnabled>
+        <lr:NextDisabled>
+          <li>Next</li>
+        </lr:NextDisabled>
+      </lr:Pagination>
+    </ul>
+</div>
+ <a href="$gridPageLink">
+<img src="bin/images/large/<%= image.exportFilename %>.jpg" />
+</a>
+
+<xmpl:aQuote>You know what they say:<br>
+	<xmpl:saying> <br />....how interesting!<br /></xmpl:saying>
+</xmpl:aQuote>
+
+<% --[[ Include the page footer]] %>
+<%@ include file="footer.html" %>

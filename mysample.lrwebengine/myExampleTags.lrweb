@@ -1,0 +1,58 @@
+--[[
+
+myExampleTags.lrweb
+This file specifies custom tagsets that can then be used within a web plug-in as
+shown in this tutorial supplied with the Lightroom SDK.
+
+Two tags are created; saying and aQuote.  These are then added to the large.html
+page so that each time an image is selected a new saying is displayed in the lower
+section of the page.
+
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+
+-- use local upvalues to declare tables or variables
+local sayings = {
+	"A dish fit for the gods - Julius Caesar, Shakespeare",
+	"Oh, that way madness lies - King Lear, Shakespeare",
+	"A multitude of sins - James 5:20",
+	"A knight in shining armour - The Ancient Ballad of Prince Baldwin",
+	"Blood is thicker than water - Guy Mannering; or the astrologer, Sir Walter Scott"
+}
+local randomSayingCount = 0
+
+-- define a variable 'globals' to add functions or variables
+-- to the global environment of every luapage
+globals = {
+	randomSaying = function()
+		randomSayingCount = math.mod( randomSayingCount + 1, #sayings )
+
+		return sayings[ randomSayingCount ]
+	end,
+}
+
+-- define tags by creating a 'tags' table
+tags = {
+	-- each entry becomes a pair of tags:
+	-- <prefix:saySomething> and </prefix:saySomething>
+	-- the actual prefix used depends on what is used in the importTags statement.
+	saying = {
+		startTag = "write( 'Here is a saying: ' ) write( randomSaying() )",
+		endTag = "write( [[And that's all.]] ) ",
+	},
+
+	aQuote = {
+		startTag = 'write( [[<blockquote style="  margin: 0 0 0 30px; padding: 10px 0 0 20px; font-size: 88%; line-height: 1.5em; color: #666;">]] )',
+		endTag = 'write( [[</blockquote>]] )',
+	}
+}

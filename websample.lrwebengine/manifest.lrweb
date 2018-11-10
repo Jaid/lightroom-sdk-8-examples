@@ -1,0 +1,42 @@
+--[[
+
+manifest.lrweb
+
+Lightroom Web Gallery manifest.  This file maps various template files to actual
+files to be produced for your website.
+	
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+
+importTags( "lr", "com.adobe.lightroom.default" ) -- main lightroom tags including Pagination.
+
+
+-- create a GridPage called grid.html with 1 column and 50 rows as defined in the galleryInfo
+AddGridPages {
+	template="grid.html",
+	rows=model.nonCSS.numRows,
+	columns=model.nonCSS.numCols,
+}
+-- Include custom stylesheet
+AddCustomCSS{
+	filename="content/custom.css",
+}
+-- include images and javascript resources
+AddResources {
+	source='resources',
+	destination='resources',
+}
+IdentityPlate {
+	destination='content/logo.png',
+	enabledBinding = [[appearance.logo.display]],
+}

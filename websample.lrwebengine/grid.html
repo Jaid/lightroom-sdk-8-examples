@@ -1,0 +1,79 @@
+<%
+--[[
+
+grid.html
+This file displays a thumbnail grid of the images with dimensions specified in the galleryInfo.lrweb file.
+
+The image_viewer displays the clicked thumbnail as a larger image in the centre panel of the page.  Below,
+if available, the title and caption of the image are displayed.
+
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+<%
+--[[ Define some variables to make locating other resources easier
+     firstPage was defined in our manifest.]]
+
+    local others = "content"
+    local theRoot = "."
+    local mySize = "large"
+    local firstImage
+    local title
+    local caption
+    local width
+    local height
+%>
+
+<% --[[ Include the page header]] %>
+<%@ include file="header.html" %>
+
+<%
+	--[[ determine the first image within the gallery ]]
+    if numImages > 0 then
+    	firstImage = others .. "/bin/images/large/" .. getImage(1).exportFilename .. ".jpg"
+        title = getImage(1).metadata.title
+        caption = getImage(1).metadata.description
+        height = getImage(1).renditions.large.height
+        width = getImage(1).renditions.large.width
+    else
+    	firstImage = "blank.jpg"
+        title = "Add some images to LightRoom to display metadata here"
+        caption = "Add some images to LightRoom to display metadata here"
+    end
+%>
+<div class="content">
+	<span class="leftpanel">
+        <lr:ThumbnailGrid>
+            <lr:GridPhotoCell>
+                <a class="thumbnail" onclick="updateImage(this);" imgsrc="$others/bin/images/large/<%= image.exportFilename %>.jpg" id="<%= image.imageID %>" imagetitle="<%=image.metadata.title%>" imagedescription="<%=image.metadata.description%>" imagewidth="<%=image.renditions.large.width %>" imageheight="<%=image.renditions.large.height %>">
+                   	<img src="$others/bin/images/thumb/<%= image.exportFilename %>.jpg" id="<%= image.imageID %>" class="thumb" title="<%= image.exportFilename %>"/>
+                </a>
+            </lr:GridPhotoCell>
+            <lr:GridRowEnd>
+              <div class="clear">
+              </div>
+            </lr:GridRowEnd>
+        </lr:ThumbnailGrid>
+	</span>
+	<span class="clear"></span>
+	<span id="image_viewer">
+    	<img id="targetimage" src="$firstImage" width="$width" height="$height"/>
+        <div class="clear"></div>
+        <span><input id="targettitle" value="$title" class="metalabel" size="100"/></span>
+        <div class="clear"></div>
+        <span><input id="targetcaption" value="$caption" class="metalabel" size="100"/></span>
+     	
+	</span>
+</div>
+<% --[[ Include the page footer]] %>
+<%@ include file="footer.html" %>

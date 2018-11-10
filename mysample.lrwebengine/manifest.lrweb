@@ -1,0 +1,42 @@
+--[[
+
+manifest.lrweb
+Sample web template
+
+Lightroom Web Gallery manifest.  This file maps various template files to actual
+files to be produced for your website.
+	
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+
+importTags( "lr", "com.adobe.lightroom.default" )
+importTags( "xmpl", "myExampleTags.lrweb" )
+
+AddGridPages {
+	template="grid.html",
+	rows=3,
+	columns=3,
+}
+
+AddCustomCSS {
+	filename='content/custom.css',
+}
+AddPhotoPages {
+	template="large.html",
+	variant="_large",
+	destination="content",
+}
+AddResources {
+	source='resources',
+	destination='resources',
+}

@@ -1,0 +1,30 @@
+<%
+--[[
+
+header.html
+This file begins the html file.
+By separating the pages, the header can be used with the large.html and grid.html pages
+--------------------------------------------------------------------------------
+
+ADOBE SYSTEMS INCORPORATED
+ Copyright 2008 Adobe Systems Incorporated
+ All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in accordance
+with the terms of the Adobe license agreement accompanying it. If you have received
+this file from a source other than Adobe, then your use, modification, or distribution
+of it requires the prior written permission of Adobe.
+
+]]
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Adobe Photoshop Lightroom" />
+<title>My Sample Plugin</title>
+<link rel="stylesheet" type="text/css" media="screen" title="Custom Settings" href="$others/custom.css" />
+<script type="text/javascript" src="$theRoot/resources/live_update.js"></script>
+</head>
+<body>
+<h1 onclick="clickTarget(this, 'metadata.siteTitle.value');" id="metadata.siteTitle.value" class="siteTitle">$model.metadata.siteTitle.value</h1>
